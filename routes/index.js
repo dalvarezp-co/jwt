@@ -20,10 +20,12 @@ const schema = Joi.object({
 });
 
 router.get("/movies", function (req, res, next) {
-  movie.getMovies().then((movies) => {
-    console.log("Movies", movies);
-    res.send(movies);
-  });
+
+    movie.getMovies().then((movies) => {
+      console.log("Movies", movies);
+      res.send(movies);
+    });
+
 });
 
 router.get("/movies/:id", function (req, res, next) {
@@ -37,35 +39,50 @@ router.get("/movies/:id", function (req, res, next) {
 });
 
 router.post("/movies", function (req, res, next) {
-  const { error } = schema.validate(req.body);
-  if (error) {
-    return res.status(404).send(error);
-  }
+  if(req.method.rol === "rol1" ){
+    const { error } = schema.validate(req.body);
+    if (error) {
+      return res.status(404).send(error);
+    }
 
-  movie.createMovie(req.body).then((movie) => {
-    console.log("Movies", movie);
-    res.send(movie);
-  });
+    movie.createMovie(req.body).then((movie) => {
+      console.log("Movies", movie);
+      res.send(movie);
+    });
+  }
+  else{
+    res.send("You can't write with your rol");
+  }
 });
 
 router.put("/movies/:id", function (req, res, next) {
-  movie.updateMovie(req.params.id, req.body).then((movie) => {
-    console.log("movie", movie);
-    if (movie.matchedCount === 0) {
-      return res.status(404).send("La película con el id no existe");
-    }
-    res.send(movie);
-  });
+  if(req.method.rol === "rol1" ){
+    movie.updateMovie(req.params.id, req.body).then((movie) => {
+      console.log("movie", movie);
+      if (movie.matchedCount === 0) {
+        return res.status(404).send("La película con el id no existe");
+      }
+      res.send(movie);
+    });
+  }
+  else{
+    res.send("You can't write with your rol");
+  }
 });
 
 router.delete("/movies/:id", function (req, res, next) {
-  movie.deleteMovie(req.params.id).then((movie) => {
-    console.log("movie", movie);
-    if (movie.deletedCount === 0) {
-      return res.status(404).send("La película con el id no existe");
-    }
-    res.sendStatus(204);
-  });
+  if(req.method.rol === "rol1" ){
+    movie.deleteMovie(req.params.id).then((movie) => {
+      console.log("movie", movie);
+      if (movie.deletedCount === 0) {
+        return res.status(404).send("La película con el id no existe");
+      }
+      res.sendStatus(204);
+    });
+  }
+  else{
+    res.send("You can't write with your rol");
+  }
 });
 
 module.exports = router;

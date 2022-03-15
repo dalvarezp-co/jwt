@@ -25,7 +25,7 @@ class HandlerGenerator {
       if( username === mockedUsername && password === mockedPassword && rol === mockedRol1 ) {
         
         // Se genera un nuevo token para el nombre de usuario el cuál expira en 24 horas
-        let token = jwt.sign( { username: username},
+        let token = jwt.sign( { username: username, rol:rol},
           config.secret, { expiresIn: '24h' } );
         
         // Retorna el token el cuál debe ser usado durante las siguientes solicitudes
@@ -38,7 +38,7 @@ class HandlerGenerator {
       }
       else if(username === mockedUsername && password === mockedPassword && rol === mockedRol2){
         // Se genera un nuevo token para el nombre de usuario el cuál expira en 24 horas
-        let token = jwt.sign( { username: username},
+        let token = jwt.sign( { username: username, rol:rol},
           config.secret, { expiresIn: '24h' } );
         
         // Retorna el token el cuál debe ser usado durante las siguientes solicitudes
