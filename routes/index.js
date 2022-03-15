@@ -1,7 +1,6 @@
 //------------------Code in tutorial------------------------------
 var express = require('express');
 var router = express.Router();
-
 var HandlerGenerator = require("../handlegenerator.js");
 var middleware = require("../middleware.js");
 
@@ -10,21 +9,11 @@ HandlerGenerator = new HandlerGenerator();
 /* GET home page. */
 router.get('/', middleware.checkToken, HandlerGenerator.index);
 
-router.post( '/login', HandlerGenerator.login);
+router.post('/login', HandlerGenerator.login);
 
-module.exports = router;
-
-
-
-//------------------Code in repo apisamples------------------------------
-
-/*
-var express = require("express");
 const Joi = require("joi");
 const movie = require("../controllers/movie");
 //const Movie = require("../models/movie");
-
-var router = express.Router();
 
 const schema = Joi.object({
   name: Joi.string().min(3).max(30).required(),
@@ -80,5 +69,3 @@ router.delete("/movies/:id", function (req, res, next) {
 });
 
 module.exports = router;
-
-*/
