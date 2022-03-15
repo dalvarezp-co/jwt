@@ -1,3 +1,24 @@
+//------------------Code in tutorial------------------------------
+var express = require('express');
+var router = express.Router();
+
+var HandlerGenerator = require("../handlegenerator.js");
+var middleware = require("../middleware.js");
+
+HandlerGenerator = new HandlerGenerator();
+
+/* GET home page. */
+router.get('/', middleware.checkToken, HandlerGenerator.index);
+
+router.post( '/login', HandlerGenerator.login);
+
+module.exports = router;
+
+
+
+//------------------Code in repo apisamples------------------------------
+
+/*
 var express = require("express");
 const Joi = require("joi");
 const movie = require("../controllers/movie");
@@ -59,3 +80,5 @@ router.delete("/movies/:id", function (req, res, next) {
 });
 
 module.exports = router;
+
+*/
